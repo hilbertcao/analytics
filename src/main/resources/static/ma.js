@@ -6,7 +6,6 @@
     //Document对象数据
     if(document) {
         params.domain = document.domain || '';
-        params.url = document.URL || '';
         //params.title = document.title || '';
         //params.referrer = document.referrer || '';
     }
@@ -35,10 +34,39 @@
         }
     }
 
+    /**
+     * 截取url里面的不带参数的url段
+     * @param url
+     * @returns {string}
+     */
+    var getUrl = function(url){
+        if(!url){
+
+            return "";
+        }
+
+        var index = url.indexOf("?");
+        if (index != -1) {
+
+            return url.substring(0,index);
+        }
+        return url;
+    };
+
+    /**
+     * 获取url里面带的参数
+     * @param url
+     * @returns {*}
+     */
     var getParamFromUrl = function(url) {
         var paramList = new Object();
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
+        if(!url){
+
+            return "";
+        }
+        var index = url.indexOf("?");
+        if (index != -1) {
+            var str = url.substr(index);
             var strs = str.split("&");
             for(var i = 0; i < strs.length; i ++) {
                 paramList[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
@@ -142,6 +170,13 @@
             }
         }
 
+        //表单提交的时候默认是提交到method,method为空，可能就是提交到本页
+        if(this.action != ""){
+            paramsObject.url = getUrl(this.action);
+        }else{
+            paramsObject.url = document.url;
+        }
+
         report(paramsObject);
     };
 
@@ -191,6 +226,7 @@
                     copyObjectWithFiledName(urlParams,paramsObject,"userName");
                     copyObjectWithFiledName(_params,paramsObject,"userId");
                     copyObjectWithFiledName(_params,paramsObject,"userName");
+                    paramsObject.url = getUrl(this._url);
                    report(paramsObject);
                 }
                 if(oldOnReadyStateChange) {
