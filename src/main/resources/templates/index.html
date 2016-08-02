@@ -9,7 +9,13 @@
         $(document).ready(function(){
             $("#ajaxBtn").click(function(){
 
-                $.post('/ajax.do', { userId: 11 ,age:16}, function (text, status) {
+                $.post('/ajax.do?v=2', { userId: 11 ,age:16}, function (text, status) {
+                    console.info(text);
+                });
+            });
+            $("#ajaxBtn2").click(function(){
+
+                $.post('/ajax2.do?n=1', { uid: 12}, function (text, status) {
                     console.info(text);
                 });
             });
@@ -23,12 +29,13 @@
 <input type="submit" value="确认"/>
 </form>
 <input id="ajaxBtn" value="ajax请求" type="button"/>
+<input id="ajaxBtn2" value="ajax请求2" type="button"/>
 <script type="text/javascript">
     var _maq = _maq || [];
 
     (function() {
         var ma = document.createElement('script'); ma.type = 'text/javascript'; ma.async = true;
-        ma.src = ('https:' == document.location.protocol ? 'https://analytics' : 'http://analytics') + '.ab.com/ma.js?v='+ new Date().getTime();
+        ma.src = ('https:' == document.location.protocol ? 'https://analytics' : 'http://analytics') + '.ab.com/an.js?v='+ new Date().getTime();
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ma, s);
     })();
 </script>

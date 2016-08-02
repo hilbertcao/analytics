@@ -66,7 +66,7 @@
         }
         var index = url.indexOf("?");
         if (index != -1) {
-            var str = url.substr(index);
+            var str = url.substr(index+1);
             var strs = str.split("&");
             for(var i = 0; i < strs.length; i ++) {
                 paramList[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
@@ -90,11 +90,11 @@
         }
     };
 
-    var copyObjectWithFiledName= function(source,target,filedName){
+    var copyObjectWithFiledName= function(source,target,sourceFiledName,targetFiledName){
         for (var prop in source){
 
-            if(prop.toUpperCase() == filedName.toUpperCase()){
-                target[prop] = source[prop];
+            if(prop.toUpperCase() == sourceFiledName.toUpperCase()){
+                target[targetFiledName] = source[prop];
             }
         }
     };
@@ -135,7 +135,7 @@
 
         //通过Image对象请求后端脚本
         var img = new Image(1, 1);
-        img.src = 'http://analytics.ab.com/1.gif?' + args +"&v=" + new Date().getTime();
+        img.src = 'http://analytics.ab.com/1.gif?' + args +"&v=" + new Date().getTime()+"&event=" + JSON.stringify(paramsObject);
     };
 
     var formsubmitFunction = function(){
@@ -158,9 +158,9 @@
         copyObject(params,paramsObject);
         var urlParams = getParamFromUrl(this.action);
 
-        copyObjectWithFiledName(urlParams,paramsObject,"uid");
-        copyObjectWithFiledName(urlParams,paramsObject,"userId");
-        copyObjectWithFiledName(urlParams,paramsObject,"userName");
+        copyObjectWithFiledName(urlParams,paramsObject,"uid","userId");
+        copyObjectWithFiledName(urlParams,paramsObject,"userId","userId");
+        copyObjectWithFiledName(urlParams,paramsObject,"userName","userName");
 
         for(var i=0;i<this.elements.length;i++){
             var element = this.elements[i];
@@ -221,11 +221,12 @@
                     var urlParams = getParamFromUrl(url);
 
                     var _params = getParamFromPost(data);
-                    copyObjectWithFiledName(urlParams,paramsObject,"uid");
-                    copyObjectWithFiledName(urlParams,paramsObject,"userId");
-                    copyObjectWithFiledName(urlParams,paramsObject,"userName");
-                    copyObjectWithFiledName(_params,paramsObject,"userId");
-                    copyObjectWithFiledName(_params,paramsObject,"userName");
+                    copyObjectWithFiledName(urlParams,paramsObject,"uid","userId");
+                    copyObjectWithFiledName(urlParams,paramsObject,"userId","userId");
+                    copyObjectWithFiledName(urlParams,paramsObject,"userName","userName");
+                    copyObjectWithFiledName(_params,paramsObject,"uid","userId");
+                    copyObjectWithFiledName(_params,paramsObject,"userId","userId");
+                    copyObjectWithFiledName(_params,paramsObject,"userName","userName");
                     paramsObject.url = getUrl(this._url);
                    report(paramsObject);
                 }

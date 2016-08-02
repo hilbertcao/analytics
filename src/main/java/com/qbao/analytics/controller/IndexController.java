@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Controller public class IndexController {
 
-    @RequestMapping("/index.html")
+    @RequestMapping(path = {"/index.html","/"})
     public String greeting(String name,
             Model model) {
         model.addAttribute("name", name + "ed10");
@@ -79,4 +79,22 @@ import java.util.UUID;
         }
         return "success";
     }
+
+    @RequestMapping("/ajax2.do")
+    public String ajax2(HttpServletRequest servletRequest) {
+
+        System.out.println("ajax提交数据");
+        try {
+            String records = URLDecoder.decode(servletRequest.getCookies()[1].getValue(),"UTF-8");
+            System.out.println(records);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (String key:servletRequest.getParameterMap().keySet()
+                ) {
+            System.out.println(key+":"+servletRequest.getParameterMap().get(key)[0]);
+        }
+        return "success";
+    }
+
 }
