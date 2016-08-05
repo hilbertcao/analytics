@@ -6,32 +6,6 @@
     //Document对象数据
     if(document) {
         params.domain = document.domain || '';
-        //params.title = document.title || '';
-        //params.referrer = document.referrer || '';
-    }
-    //Window对象数据
-    if(window && window.screen) {
-        //params.screenHeight = window.screen.height || 0;
-        //params.screenWidth = window.screen.width || 0;
-        //params.colorDepth = window.screen.colorDepth || 0;
-        //params.appCodeName = navigator.appCodeName || 0;
-        //params.appName = navigator.appName || 0;
-        //params.appVersion = navigator.appVersion || 0;
-        //params.browserLanguage = navigator.browserLanguage || 0;
-        //params.platform = navigator.platform || 0;
-        //params.systemLanguage = navigator.systemLanguage || 0;
-        //params.userAgent = navigator.userAgent || 0;
-        //params.userLanguage = navigator.userLanguage || 0;
-    }
-    //navigator对象数据
-    if(navigator) {
-        //params.lang = navigator.language || '';
-    }
-    //解析_maq配置
-    if(_maq) {
-        for(var i in _maq) {
-            //to-do
-        }
     }
 
     /**
@@ -45,12 +19,35 @@
             return "";
         }
 
-        var index = url.indexOf("?");
-        if (index != -1) {
+        var startIndex = url.indexOf("/");
+        if (startIndex != -1) {
 
-            return url.substring(0,index);
+            url =  url.substring(startIndex)
         }
+
+        var endIndex = url.indexOf("?");
+        if (endIndex != -1) {
+
+            url =  url.substring(0,endIndex)
+        }
+
         return url;
+    };
+
+    /**
+     * 获取设备终端类型
+     * @returns {*}
+     */
+    var getTeminalType = function(){
+
+        var u = navigator.userAgent.toLowerCase();
+        if (/(iphone|ipad|ipod|ios)/i.test(u)) {
+            return "ios";
+        }
+        if (/(android)/i.test(u)) {
+            return "android";
+        }
+        return "pc";
     };
 
     /**
@@ -99,6 +96,16 @@
         }
     };
 
+    var encodeStr = function(str){
+
+        return decodeURI(JSON.stringify(str));
+    };
+
+    var decodeStr = function(str){
+
+        return JSON.parse(str);
+    };
+
     var report = function(paramsObject){
 
         paramsObject = paramsObject||{};
@@ -113,9 +120,10 @@
         }
 
         var recordsStr = cookie("recordList")||"[]";
-        var records = JSON.parse(recordsStr);
+        var records = decodeStr(recordsStr);
         //给最近的记录加个时间戳
-        paramsObject.timestamp = new Date().getTime();
+        paramsObject.eventTime = new Date().getTime();
+
         records.push(paramsObject);
 
         //保证不超过5个
@@ -127,7 +135,7 @@
             }
         }
 
-        cookie("recordList",JSON.stringify(records),{       //设置cookie，并设置过期时间7天，路径、域
+        cookie("recordList",encodeStr(records),{       //设置cookie，并设置过期时间7天，路径、域
             "expires": 100000,
             "path": '/',
             "domain":".ab.com"
@@ -135,12 +143,15 @@
 
         //通过Image对象请求后端脚本
         var img = new Image(1, 1);
-        img.src = 'http://analytics.ab.com/1.gif?' + args +"&v=" + new Date().getTime()+"&event=" + JSON.stringify(paramsObject);
+
+        //设置终端类型
+        paramsObject.teminalType = getTeminalType();
+        img.src = 'http://analytics.ab.com/1.gif?' + args +"&v=" + new Date().getTime()+"&event=" + encodeStr(paramsObject);
     };
 
     var formsubmitFunction = function(){
         console.info("提交表单");
-        //复制
+        //复制toJson
         var paramsObject = {};
 
         //先考虑取cookie里面的userName和userId

@@ -3,24 +3,6 @@
 <head>
     <title>登录页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function(){
-            $("#ajaxBtn").click(function(){
-
-                $.post('/ajax.do?v=2', { userId: 11 ,age:16}, function (text, status) {
-                    console.info(text);
-                });
-            });
-            $("#ajaxBtn2").click(function(){
-
-                $.post('/ajax2.do?n=1', { uid: 12}, function (text, status) {
-                    console.info(text);
-                });
-            });
-        });
-    </script>
 </head>
 <body>
 <form method="post" action="./login.do">
@@ -28,8 +10,6 @@
 <label>密码:</label><input type="password"/>
 <input type="submit" value="确认"/>
 </form>
-<input id="ajaxBtn" value="ajax请求" type="button"/>
-<input id="ajaxBtn2" value="ajax请求2" type="button"/>
 <script type="text/javascript">
     var _maq = _maq || [];
 

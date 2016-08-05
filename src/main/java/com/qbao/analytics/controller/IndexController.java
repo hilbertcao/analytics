@@ -1,9 +1,11 @@
 package com.qbao.analytics.controller;
 
+import com.qbao.analytics.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -53,14 +55,24 @@ import java.util.UUID;
     }
 
     @RequestMapping("/login.do")
-    public String form(HttpServletRequest servletRequest) {
+    public String form(@RequestParam( "userName" ) String userName,HttpServletResponse response) {
 
-        System.out.println("登录表单提交数据");
-        for (String key:servletRequest.getParameterMap().keySet()
-                ) {
-            System.out.println(key+":"+servletRequest.getParameterMap().get(key)[0]);
-        }
-        return "success";
+    Cookie cookie = new Cookie("uid", String.valueOf(UserRepository.getUserId(userName)));
+        cookie.setDomain(".ab.com");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "detail";
+    }
+
+    @RequestMapping("/logout.do")
+    public String logout(HttpServletResponse response) {
+
+        Cookie cookie = new Cookie("uid","0");
+        cookie.setDomain(".ab.com");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "index";
     }
 
     @RequestMapping("/ajax.do")

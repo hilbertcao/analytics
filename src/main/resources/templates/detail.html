@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("#ajaxBtn").click(function(){
+
+                $.post('/ajax.do?v=2', { age:16}, function (text, status) {
+                    console.info(text);
+                });
+            });
+            $("#ajaxBtn2").click(function(){
+
+                $.post('/ajax2.do?n=1', { rrr: 12}, function (text, status) {
+                    console.info(text);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<input id="ajaxBtn" value="ajax请求" type="button"/>
+<input id="ajaxBtn2" value="ajax请求2" type="button"/>
+<a href="/logout.do">登出</a>
+<script type="text/javascript">
+    var _maq = _maq || [];
+
+    (function() {
+        var ma = document.createElement('script'); ma.type = 'text/javascript'; ma.async = true;
+        ma.src = ('https:' == document.location.protocol ? 'https://analytics' : 'http://analytics') + '.ab.com/an.js?v='+ new Date().getTime();
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ma, s);
+    })();
+</script>
+</body>
+</html>
