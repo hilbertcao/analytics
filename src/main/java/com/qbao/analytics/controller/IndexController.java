@@ -75,10 +75,9 @@ import java.util.UUID;
         return "index";
     }
 
-    @RequestMapping("/ajax.do")
+    @RequestMapping("/order.do")
     public String ajax(HttpServletRequest servletRequest) {
 
-        System.out.println("ajax提交数据");
         try {
             String records = URLDecoder.decode(servletRequest.getCookies()[1].getValue(),"UTF-8");
             System.out.println(records);
@@ -92,10 +91,9 @@ import java.util.UUID;
         return "success";
     }
 
-    @RequestMapping("/ajax2.do")
+    @RequestMapping("/qiandao.do")
     public String ajax2(HttpServletRequest servletRequest) {
 
-        System.out.println("ajax提交数据");
         try {
             String records = URLDecoder.decode(servletRequest.getCookies()[1].getValue(),"UTF-8");
             System.out.println(records);

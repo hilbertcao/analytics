@@ -19,6 +19,8 @@
             return "";
         }
 
+        url = url.split("//")[1];
+
         var startIndex = url.indexOf("/");
         if (startIndex != -1) {
 

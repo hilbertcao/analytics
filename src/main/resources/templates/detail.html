@@ -7,15 +7,15 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
-            $("#ajaxBtn").click(function(){
+            $("#orderBtn").click(function(){
 
-                $.post('/ajax.do?v=2', { age:16}, function (text, status) {
+                $.post('/order.do?v=2', { age:16}, function (text, status) {
                     console.info(text);
                 });
             });
-            $("#ajaxBtn2").click(function(){
+            $("#qiandaoBtn").click(function(){
 
-                $.post('/ajax2.do?n=1', { rrr: 12}, function (text, status) {
+                $.post('/qiandao.do?n=1', { rrr: 12}, function (text, status) {
                     console.info(text);
                 });
             });
@@ -23,8 +23,8 @@
     </script>
 </head>
 <body>
-<input id="ajaxBtn" value="ajax请求" type="button"/>
-<input id="ajaxBtn2" value="ajax请求2" type="button"/>
+<input id="orderBtn" value="订单" type="button"/>
+<input id="qiandaoBtn" value="签到" type="button"/>
 <a href="/logout.do">登出</a>
 <script type="text/javascript">
     var _maq = _maq || [];
