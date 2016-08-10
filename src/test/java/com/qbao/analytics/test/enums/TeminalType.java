@@ -5,12 +5,16 @@ package com.qbao.analytics.test.enums;
  */
 public enum TeminalType {
 
-    CHROME("pc")
-    ,IE11("android")
-    ,SAFARI5("ios");
+    PC("pc")
+    ,ANDROID("android")
+    ,IOS("ios");
     private TeminalType(String type){
 
         this.type = type;
     }
      private String type;
+
+    public String getType() {
+        return type;
+    }
 }

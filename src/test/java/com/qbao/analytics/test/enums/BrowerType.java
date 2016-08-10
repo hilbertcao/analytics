@@ -13,4 +13,8 @@ public enum BrowerType {
         this.userAgent = userAgent;
     }
      private String userAgent;
+
+    public String getUserAgent() {
+        return userAgent;
+    }
 }

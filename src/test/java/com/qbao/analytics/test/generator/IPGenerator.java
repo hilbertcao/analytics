@@ -1,6 +1,6 @@
 package com.qbao.analytics.test.generator;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  * ip生成器
@@ -44,4 +44,25 @@ public class IPGenerator {
         return x;
     }
 
+    /**
+     * 生成一个长度1-n的ip列表
+     * @param n
+     * @return
+     */
+    public static Collection<String> generateRandomIpLisList(int n){
+
+        Set<String> ips= new HashSet<String>();
+        Random random = new Random();
+        int size = random.nextInt(2)+1;
+        for(int i=0;i<size;i++){
+
+            String ip = getRandomIp();
+            while(ips.contains(ip)){
+                ip = getRandomIp();
+            }
+            ips.add(getRandomIp());
+        }
+
+        return ips;
+    }
 }
