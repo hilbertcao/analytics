@@ -38,8 +38,8 @@ public class UserSession {
             currenEventType = EventType.登录;
         }
 
-        String domain = "a.ab.com";
-        Event event = new Event(device,user,currenEventType,domain);
+        String domain = "www.qbao.com";
+        Event event = new Event(device,user,currenEventType,domain,System.currentTimeMillis());
         currenEventType = currenEventType.next();
         Repositorys.getDeviceEventRepository().putDeviceEvent(device.getClientId(),event);
         return event;

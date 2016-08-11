@@ -13,13 +13,13 @@ import java.util.Map;
 public class UserRepository {
 
 
-    private Map<Integer,User> userMap;
+    private Map<String,User> userMap;
     private List<User> users;
     private int userTotalNum;
 
     public UserRepository(int userTotalNum) {
         this.userTotalNum = userTotalNum;
-        this.userMap = new HashMap<Integer, User>(userTotalNum);
+        this.userMap = new HashMap<String, User>(userTotalNum);
         this.users = UserGenerator.generateUsers(userTotalNum);
         for(User user:users){
 

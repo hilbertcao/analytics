@@ -5,15 +5,15 @@ package com.qbao.analytics.test;
  */
 public class User {
 
-    private int userId;
+    private String userId;
     private String userName;
 
-    public User(int userId, String userName) {
+    public User(String userId, String userName) {
         this.userId = userId;
         this.userName = userName;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 

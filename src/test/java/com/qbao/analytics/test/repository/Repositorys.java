@@ -9,7 +9,7 @@ public class Repositorys {
     private static UserDeviceRepository userDeviceRepository;
     static{
 
-        userRepository = new UserRepository(100);
+        userRepository = new UserRepository(1000);
         userDeviceRepository = new UserDeviceRepository(userRepository);
         deviceEventRepository = new DeviceEventRepository();
     }

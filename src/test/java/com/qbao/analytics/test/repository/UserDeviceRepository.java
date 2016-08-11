@@ -14,12 +14,13 @@ import java.util.*;
 public class UserDeviceRepository {
 
     private UserRepository userRepository;
-    private Map<Integer, List<Device>> userDeviceMap;
+    private Map<String, List<Device>> userDeviceMap;
 
     public UserDeviceRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
         List<User> users = userRepository.getAllUsers();
-        userDeviceMap = new HashMap<Integer, List<Device>>(users.size());
+        userDeviceMap = new HashMap<String, List<Device>>(users.size());
+        userDeviceMap = new HashMap<String, List<Device>>(users.size());
 
         //认为一个用户可能有几个ip,以及有几个浏览器
         for (User user : users) {
@@ -38,7 +39,7 @@ public class UserDeviceRepository {
         }
     }
 
-    public List<Device> getUserDevices(int userId) {
+    public List<Device> getUserDevices(String userId) {
 
         return userDeviceMap.get(userId);
     }
