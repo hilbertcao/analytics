@@ -83,7 +83,10 @@ public class Tester {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "{\"serverType\":\"nginx\",\"meta\":{\"ip\":\""+ip+"\",\"time\":\""+receiveTimeStamp+"\",\"referer\":\"http://"+event.getDomain()+"\",\"userAgent\":\""+event.getDevice().getBrowerType().getUserAgent()+"\",\"clientId\":\""+event.getDevice().getClientId()+"\",\"event\":\"-\",\"recordList\":\""+recordListStr+"\"}}";
+
+        String result = "{\"serverType\":\"nginx\",\"meta\":{\"ip\":\""+ip+"\",\"time\":\""+receiveTimeStamp+"\",\"userId\":\""+event.getUser().getUserId()+"\",\"userName\":\""+event.getUser().getUserName()+"\",\"referer\":\"http://"+event.getDomain()+"\",\"userAgent\":\""+event.getDevice().getBrowerType().getUserAgent()+"\",\"clientId\":\""+event.getDevice().getClientId()+"\",\"event\":\"-\",\"recordList\":\""+recordListStr+"\"}}";
+        System.out.println(result);
+        return result;
     }
 
     public static Map convertEventToMap(Event event){
@@ -94,6 +97,7 @@ public class Tester {
             map.put("userName",event.getUser().getUserName());
         }else{
             map.put("userId",event.getUser().getUserId());
+            map.put("userName",event.getUser().getUserName());
         }
         map.put("url",event.getEventType().getUrl());
         map.put("eventTime",event.getEventTime());

@@ -54,6 +54,7 @@ public class Event {
             map.put("userName",user.getUserName());
         }else{
             map.put("userId",user.getUserId());
+            map.put("userName",user.getUserName());
         }
         map.put("url",eventType.getUrl());
         map.put("eventTime",System.currentTimeMillis());

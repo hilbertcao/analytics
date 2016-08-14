@@ -23,7 +23,7 @@ public class KafkaProducer
 
     public void produce(String topic ,String key,String value) {
         try {
-            Thread.sleep(200);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
