@@ -4,18 +4,25 @@
     <title>登录页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<script type="text/javascript">
+
+    function validate(){
+
+        alert("校验");
+        return true;
+    }
+</script>
 <body>
-<form method="post" action="./login.do">
+<form method="post" action="./login.do" onsubmit="return validate()">
 <label>用户名:</label><input type="text" name="userName"/>
 <label>密码:</label><input type="password"/>
 <input type="submit" value="确认"/>
 </form>
 <script type="text/javascript">
     var _maq = _maq || [];
-
     (function() {
         var ma = document.createElement('script'); ma.type = 'text/javascript'; ma.async = true;
-        ma.src = ('https:' == document.location.protocol ? 'https://analytics' : 'http://analytics') + '.ab.com/an.js?v='+ new Date().getTime();
+        ma.src = ('https:' == document.location.protocol ? 'https://analytics' : 'http://analytics') + '.qbao.com/analytics.js?v='+ new Date().getTime();
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ma, s);
     })();
 </script>

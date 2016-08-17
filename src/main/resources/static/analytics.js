@@ -1,12 +1,49 @@
-/*! cookiejs v1.0.8 | MIT (c) 2016 kenny wang | https://github.com/jaywcjlove/cookie.js */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.cookie=e()}}(function(){function e(e){return!!e&&"[object Object]"===Object.prototype.toString.call(e)}function t(e){return e instanceof Array}function n(e){return Array.prototype.slice.call(e)}function r(){return this instanceof r?void 0:new r}var o=Object.names||function(e){var t=[],n="";for(n in e)e.hasOwnProperty(n)&&t.push(n);return t};r.prototype={get:function(e){for(var t=e+"=",n=document.cookie.split(";"),r=0;r<n.length;r++){for(var o=n[r];" "==o.charAt(0);)o=o.substring(1,o.length);if(0==o.indexOf(t))return unescape(o.substring(t.length,o.length))}return!1},set:function(t,n,r){if(e(t))for(var o in t)t.hasOwnProperty(o)&&this.set(o,t[o],n);else{var i=e(r)?r:{expires:r},u=void 0!==i.expires?i.expires:"",a=typeof u,f=void 0!==i.path?";path="+i.path:";path=/",c=i.domain?";domain="+i.domain:"",s=i.secure?";secure":"";"string"===a&&""!==u?u=new Date(u):"number"===a&&(u=new Date(+new Date+864e5*u)),""!==u&&"toGMTString"in u&&(u=";expires="+u.toGMTString()),document.cookie=t+"="+escape(n)+u+f+c+s}},remove:function(e){e=t(e)?e:n(arguments);for(var r=0,o=e.length;o>r;r++)this.set(e[r],"",-1);return e},clear:function(e){return this.remove(o(this.all()))},all:function(){if(""===document.cookie)return{};for(var e=document.cookie.split("; "),t={},n=0,r=e.length;r>n;n++){var o=e[n].split("=");t[unescape(o[0])]=unescape(o[1])}return t}};var i=function(t,n,o){var i=arguments;return 0===i.length?r().clear():2!==i.length||n?"string"!=typeof t||n?e(t)||i.length>1&&t&&n?r().set(t,n,o):null===n?r().remove(t):r().all():r().get(t):r().clear(t)};for(var u in r.prototype)i[u]=r.prototype[u];return i});
 
 (function () {
     var params = {};
+    //收集服务器的域名
+    var collectServerDomain = "analytics.qbao.com";
+    var rootDomain = ".qbao.com";
+    //指定拦截的url,如果为空就拦截所有的
+    var collectUrls = [
+        "a.qbao.com/login.do",
+        "a.qbao.com/order.do"
+    ];
     //Document对象数据
     if(document) {
         params.domain = document.domain || '';
     }
+
+    //判断一个url需要不需要抓
+    var needCollect = function(url){
+
+        if(typeof (url)== "undefined"|| url == null){
+
+            return false;
+        }
+        if(url === ""){
+
+            return false;
+        }
+
+        var le = collectUrls.length;
+
+        //如果没有配置url列表，就全抓
+        if(le == 0){
+
+            return true;
+        }
+
+        while (le--) {
+
+            if (collectUrls[le] === url) {
+                return true;
+            }
+        }
+        return false;
+
+    };
 
     /**
      * 截取url里面的不带参数的url段
@@ -19,7 +56,15 @@
             return "";
         }
 
-        url = url.split("//")[1];
+
+        var splitArray = url.split("//");
+        if(splitArray.length == 0){
+
+            return "";
+        }
+
+        //取"//"后面那一段
+        url = splitArray[splitArray.length-1];
 
         var startIndex = url.indexOf("/");
         if (startIndex != -1) {
@@ -78,7 +123,7 @@
         var paramList = new Object();
         var strs = paramStr.split("&");
         for(var i = 0; i < strs.length; i ++) {
-            paramList[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            paramList[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
         return paramList;
     };
@@ -112,6 +157,12 @@
 
         paramsObject = paramsObject||{};
 
+        //如果不在可抓名单里面，就不抓
+        if(!needCollect(paramsObject.domain+paramsObject.url)){
+
+            return false;
+        }
+
         //拼接参数串
         var args = '';
         for(var field in paramsObject) {
@@ -137,10 +188,10 @@
             }
         }
 
-        cookie("recordList",encodeStr(records),{       //设置cookie，并设置过期时间7天，路径、域
-            "expires": 100000,
+        cookie("recordList",encodeStr(records),{
+            "expires": 10000000,
             "path": '/',
-            "domain":".ab.com"
+            "domain":rootDomain
         });
 
         //通过Image对象请求后端脚本
@@ -148,56 +199,75 @@
 
         //设置终端类型
         paramsObject.teminalType = getTeminalType();
-        img.src = 'http://analytics.ab.com/1.gif?' + args +"&v=" + new Date().getTime()+"&event=" + encodeStr(paramsObject);
+        img.src = 'http://'+collectServerDomain+'/1.gif?' + args +"&v=" + new Date().getTime()+"&event=" + encodeStr(paramsObject);
     };
 
-    var formsubmitFunction = function(){
-        console.info("提交表单");
-        //复制toJson
-        var paramsObject = {};
+    //代理表单的提交事件
+    var formsubmitFunction = function(oldFunction){
 
-        //先考虑取cookie里面的userName和userId
-        var userName = cookie("userName")||"";
-        var userId = cookie("uid")||cookie("userId")||"";
+        var cur = this;
+        var oldParams = arguments;
 
-        if(userName!=""){
-            paramsObject.username = userName;
-        }
+        return function () {
 
-        if(userId!=""){
-            paramsObject.userId = userId;
-        }
+            var current = this;
+            //先执行老的方法，看看是否是返回false的方法
+            var result = oldFunction.apply(current,oldParams);
+            if(typeof(result) == "boolean"&&!result){
 
-        copyObject(params,paramsObject);
-        var urlParams = getParamFromUrl(this.action);
-
-        copyObjectWithFiledName(urlParams,paramsObject,"uid","userId");
-        copyObjectWithFiledName(urlParams,paramsObject,"userId","userId");
-        copyObjectWithFiledName(urlParams,paramsObject,"userName","userName");
-
-        for(var i=0;i<this.elements.length;i++){
-            var element = this.elements[i];
-            var name = element.name||"";
-            if(name.toUpperCase() == "userId".toUpperCase() || name.toUpperCase() == "userName".toUpperCase()) {
-                paramsObject[name] = element.value;
+                console.log("校验不通过");
+                return false;
             }
-        }
+            console.info("提交表单");
+            //复制toJson
+            var paramsObject = {};
 
-        //表单提交的时候默认是提交到method,method为空，可能就是提交到本页
-        if(this.action != ""){
-            paramsObject.url = getUrl(this.action);
-        }else{
-            paramsObject.url = document.url;
-        }
+            //先考虑取cookie里面的userName和userId
+            var userName = cookie("userName")||"";
+            var userId = cookie("uid")||cookie("userId")||"";
 
-        report(paramsObject);
+            if(userName!=""){
+                paramsObject.username = userName;
+            }
+
+            if(userId!=""){
+                paramsObject.userId = userId;
+            }
+
+            copyObject(params,paramsObject);
+            var urlParams = getParamFromUrl(current.action);
+
+            copyObjectWithFiledName(urlParams,paramsObject,"uid","userId");
+            copyObjectWithFiledName(urlParams,paramsObject,"userId","userId");
+            copyObjectWithFiledName(urlParams,paramsObject,"userName","userName");
+
+            for(var i=0;i<current.elements.length;i++){
+                var element = current.elements[i];
+                var name = element.name||"";
+                if(name.toUpperCase() == "userId".toUpperCase() || name.toUpperCase() == "userName".toUpperCase()) {
+                    paramsObject[name] = element.value;
+                }
+            }
+
+            //表单提交的时候默认是提交到method,method为空，可能就是提交到本页
+            if(current.action != ""){
+                paramsObject.url = getUrl(current.action);
+            }else{
+                paramsObject.url = getUrl(document.url);
+            }
+
+            report(paramsObject);
+        };
+
     };
 
+    //遍历所有的form元素，代理在他们上面的submit方法
     for(var i=0;i<document.forms.length;i++){
         var form = document.forms[i];
-        form.addEventListener("submit",formsubmitFunction);
+        form.onsubmit = formsubmitFunction(form.onsubmit);
     }
 
+    //代理ajax请求
     (function(XHR) {
         "use strict";
         var open = XHR.prototype.open;
@@ -247,7 +317,7 @@
                     oldOnReadyStateChange();
                 }
             }
-            /* Set xhr.noIntercept to true to disable the interceptor for a particular call */
+
             if(!this.noIntercept) {
                 if(this.addEventListener) {
                     this.addEventListener("readystatechange", onReadyStateChange, false);
