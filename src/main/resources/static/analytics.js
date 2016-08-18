@@ -7,12 +7,14 @@
     var rootDomain = ".qbao.com";
     //指定拦截的url,如果为空就拦截所有的
     var collectUrls = [
-        "a.qbao.com/login.do",
-        "a.qbao.com/order.do"
+        "passport.qbao.com/cas/qianbaoLogin",
+        "user.qbao.com/usercenter/adjRegist/doRegist2.html",
+        "sign.qbao.com/sign/doSignPrize.html"
     ];
+    var domain = '';
     //Document对象数据
     if(document) {
-        params.domain = document.domain || '';
+        domain = document.domain || '';
     }
 
     //判断一个url需要不需要抓
@@ -53,14 +55,14 @@
     var getUrl = function(url){
         if(!url){
 
-            return "";
+            return domain+"";
         }
 
 
         var splitArray = url.split("//");
         if(splitArray.length == 0){
 
-            return "";
+            return domain+"";
         }
 
         //取"//"后面那一段
@@ -78,7 +80,7 @@
             url =  url.substring(0,endIndex)
         }
 
-        return url;
+        return domain+url;
     };
 
     /**
@@ -158,7 +160,7 @@
         paramsObject = paramsObject||{};
 
         //如果不在可抓名单里面，就不抓
-        if(!needCollect(paramsObject.domain+paramsObject.url)){
+        if(!needCollect(paramsObject.url)){
 
             return false;
         }
@@ -172,10 +174,10 @@
             args += field + '=' + encodeURIComponent(paramsObject[field]);
         }
 
-        var recordsStr = cookie("recordList")||"[]";
+        var recordsStr = cookie("actionRecords")||"[]";
         var records = decodeStr(recordsStr);
         //给最近的记录加个时间戳
-        paramsObject.eventTime = new Date().getTime();
+        paramsObject.reqTime = new Date().getTime();
 
         records.push(paramsObject);
 
@@ -188,7 +190,7 @@
             }
         }
 
-        cookie("recordList",encodeStr(records),{
+        cookie("actionRecords",encodeStr(records),{
             "expires": 10000000,
             "path": '/',
             "domain":rootDomain

@@ -15,10 +15,10 @@ import java.util.UUID;
 
 @Controller public class IndexController {
 
+    private final static String ROOT_DOMAIN = ".qbao.com";
     @RequestMapping(path = {"/index.html","/"})
     public String greeting(String name,
             Model model) {
-        model.addAttribute("name", name + "ed10");
         return "index";
     }
 
@@ -27,11 +27,6 @@ import java.util.UUID;
             throws Exception {
 
         System.out.println("收集消息");
-        for (String key:servletRequest.getParameterMap().keySet()
-             ) {
-            System.out.println(key+":"+servletRequest.getParameterMap().get(key)[0]);
-        }
-        System.out.println("ip:"+servletRequest.getRemoteAddr());
         String clientId=null;
         if(servletRequest.getCookies() != null){
             for(Cookie cookie:servletRequest.getCookies()){
@@ -45,7 +40,7 @@ import java.util.UUID;
         if( (clientId== null) || "".equals(clientId)) {
             clientId = UUID.randomUUID().toString();
             Cookie cookie = new Cookie("clientId", clientId);
-            cookie.setDomain(".ab.com");
+            cookie.setDomain(ROOT_DOMAIN);
             cookie.setPath("/");
             cookie.setMaxAge(Integer.MAX_VALUE);
             response.addCookie(cookie);
@@ -58,7 +53,7 @@ import java.util.UUID;
     public String form(@RequestParam( "userName" ) String userName,HttpServletResponse response) {
 
     Cookie cookie = new Cookie("uid", String.valueOf(UserRepository.getUserId(userName)));
-        cookie.setDomain(".ab.com");
+        cookie.setDomain(ROOT_DOMAIN);
         cookie.setPath("/");
         response.addCookie(cookie);
         return "detail";
@@ -68,7 +63,7 @@ import java.util.UUID;
     public String logout(HttpServletResponse response) {
 
         Cookie cookie = new Cookie("uid","0");
-        cookie.setDomain(".ab.com");
+        cookie.setDomain(ROOT_DOMAIN);
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
@@ -76,34 +71,14 @@ import java.util.UUID;
     }
 
     @RequestMapping("/order.do")
-    public String ajax(HttpServletRequest servletRequest) {
+    public String order(HttpServletRequest servletRequest) {
 
-        try {
-            String records = URLDecoder.decode(servletRequest.getCookies()[1].getValue(),"UTF-8");
-            System.out.println(records);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (String key:servletRequest.getParameterMap().keySet()
-                ) {
-            System.out.println(key+":"+servletRequest.getParameterMap().get(key)[0]);
-        }
         return "success";
     }
 
     @RequestMapping("/qiandao.do")
-    public String ajax2(HttpServletRequest servletRequest) {
+    public String qiandao(HttpServletRequest servletRequest) {
 
-        try {
-            String records = URLDecoder.decode(servletRequest.getCookies()[1].getValue(),"UTF-8");
-            System.out.println(records);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (String key:servletRequest.getParameterMap().keySet()
-                ) {
-            System.out.println(key+":"+servletRequest.getParameterMap().get(key)[0]);
-        }
         return "success";
     }
 
