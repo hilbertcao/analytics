@@ -1,4 +1,4 @@
-package com.qbao.analytics.test.repository;
+package com.abc.analytics.test.repository;
 
 /**
  * Created by caopengfei on 2016/8/10.

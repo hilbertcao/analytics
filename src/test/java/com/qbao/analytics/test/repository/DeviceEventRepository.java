@@ -1,6 +1,6 @@
-package com.qbao.analytics.test.repository;
+package com.abc.analytics.test.repository;
 
-import com.qbao.analytics.test.Event;
+import com.abc.analytics.test.Event;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;

@@ -1,4 +1,4 @@
-package com.qbao.analytics.test;
+package com.abc.analytics.test;
 
 /**
  * 用户

@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.qbao.order</groupId>
+    <groupId>com.abc.order</groupId>
     <artifactId>analytics</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -50,7 +50,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.qbao.analytics.Main</mainClass>
+                            <mainClass>com.abc.analytics.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -157,42 +157,6 @@
 
     </dependencies>
     <repositories>
-        <repository>
-            <id>thirdparty</id>
-            <url>
-                http://192.168.7.246:8081/nexus/content/repositories/thirdparty/
-            </url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>offical</id>
-            <name>Maven Official Repository</name>
-            <url>http://repo1.maven.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>code.alibabatech.com</id>
-            <name>alibaba Repository</name>
-            <url>http://code.alibabatech.com/mvn/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
 
 
         <repository>

@@ -1,10 +1,10 @@
-package com.qbao.analytics.test.repository;
+package com.abc.analytics.test.repository;
 
-import com.qbao.analytics.test.Device;
-import com.qbao.analytics.test.User;
-import com.qbao.analytics.test.enums.BrowerType;
-import com.qbao.analytics.test.enums.TeminalType;
-import com.qbao.analytics.test.generator.IPGenerator;
+import com.abc.analytics.test.Device;
+import com.abc.analytics.test.User;
+import com.abc.analytics.test.enums.BrowerType;
+import com.abc.analytics.test.enums.TeminalType;
+import com.abc.analytics.test.generator.IPGenerator;
 
 import java.util.*;
 

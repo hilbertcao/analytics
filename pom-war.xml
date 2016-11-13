@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.qbao.order</groupId>
+    <groupId>com.abc.order</groupId>
     <artifactId>analytics</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -11,7 +11,7 @@
         <springframework.version>4.2.5.RELEASE</springframework.version>
         <springframework.boot.version>1.3.3.RELEASE</springframework.boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.qbao.analytics.Application</start-class>
+        <start-class>com.abc.analytics.Application</start-class>
     </properties>
     <build>
         <finalName>analytics</finalName>
@@ -50,7 +50,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.qbao.analytics.Main</mainClass>
+                            <mainClass>com.abc.analytics.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -167,42 +167,6 @@
 
     </dependencies>
     <repositories>
-        <repository>
-            <id>thirdparty</id>
-            <url>
-                http://192.168.7.246:8081/nexus/content/repositories/thirdparty/
-            </url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>offical</id>
-            <name>Maven Official Repository</name>
-            <url>http://repo1.maven.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>code.alibabatech.com</id>
-            <name>alibaba Repository</name>
-            <url>http://code.alibabatech.com/mvn/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
 
 
         <repository>
@@ -216,17 +180,6 @@
             <id>offical</id>
             <name>Maven Official Repository</name>
             <url>http://repo1.maven.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>code.taobao.org</id>
-            <name>Repository of code.taobao.org</name>
-            <url>http://code.taobao.org/mvn/repository</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

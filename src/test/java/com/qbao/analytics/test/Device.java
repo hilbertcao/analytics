@@ -1,7 +1,7 @@
-package com.qbao.analytics.test;
+package com.abc.analytics.test;
 
-import com.qbao.analytics.test.enums.BrowerType;
-import com.qbao.analytics.test.enums.TeminalType;
+import com.abc.analytics.test.enums.BrowerType;
+import com.abc.analytics.test.enums.TeminalType;
 
 /**
  * 设备(1个浏览器也相当于一个device)

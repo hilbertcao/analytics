@@ -1,4 +1,4 @@
-package com.qbao.analytics.test.util;
+package com.abc.analytics.test.util;
 
 import java.util.Random;
 

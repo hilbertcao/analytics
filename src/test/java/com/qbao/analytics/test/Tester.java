@@ -1,8 +1,8 @@
-package com.qbao.analytics.test;
+package com.abc.analytics.test;
 
 import com.google.gson.Gson;
-import com.qbao.analytics.test.enums.EventType;
-import com.qbao.analytics.test.repository.Repositorys;
+import com.abc.analytics.test.enums.EventType;
+import com.abc.analytics.test.repository.Repositorys;
 
 
 import java.io.File;

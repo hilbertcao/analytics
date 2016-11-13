@@ -1,6 +1,6 @@
-package com.qbao.analytics.test.generator;
+package com.abc.analytics.test.generator;
 
-import com.qbao.analytics.test.User;
+import com.abc.analytics.test.User;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;

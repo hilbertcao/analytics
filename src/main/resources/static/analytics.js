@@ -3,13 +3,13 @@
 (function () {
     var params = {};
     //收集服务器的域名
-    var collectServerDomain = "analytics.qbao.com";
-    var rootDomain = ".qbao.com";
+    var collectServerDomain = "analytics.abc.com";
+    var rootDomain = ".abc.com";
     //指定拦截的url,如果为空就拦截所有的
     var collectUrls = [
-        "passport.qbao.com/cas/qianbaoLogin",
-        "user.qbao.com/usercenter/adjRegist/doRegist2.html",
-        "sign.qbao.com/sign/doSignPrize.html"
+        "passport.abc.com/cas/qianbaoLogin",
+        "user.abc.com/usercenter/adjRegist/doRegist2.html",
+        "sign.abc.com/sign/doSignPrize.html"
     ];
     var domain = '';
     //Document对象数据

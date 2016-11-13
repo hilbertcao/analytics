@@ -1,4 +1,4 @@
-package com.qbao.analytics.test.generator;
+package com.abc.analytics.test.generator;
 
 import java.util.*;
 

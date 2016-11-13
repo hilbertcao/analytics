@@ -1,4 +1,4 @@
-package com.qbao.analytics.test.enums;
+package com.abc.analytics.test.enums;
 
 import java.util.Random;
 

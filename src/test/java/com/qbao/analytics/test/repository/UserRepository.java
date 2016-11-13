@@ -1,7 +1,7 @@
-package com.qbao.analytics.test.repository;
+package com.abc.analytics.test.repository;
 
-import com.qbao.analytics.test.User;
-import com.qbao.analytics.test.generator.UserGenerator;
+import com.abc.analytics.test.User;
+import com.abc.analytics.test.generator.UserGenerator;
 
 import java.util.HashMap;
 import java.util.List;

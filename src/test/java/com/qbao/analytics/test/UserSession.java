@@ -1,7 +1,7 @@
-package com.qbao.analytics.test;
+package com.abc.analytics.test;
 
-import com.qbao.analytics.test.enums.EventType;
-import com.qbao.analytics.test.repository.Repositorys;
+import com.abc.analytics.test.enums.EventType;
+import com.abc.analytics.test.repository.Repositorys;
 
 import java.util.List;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class UserSession {
             currenEventType = EventType.登录;
         }
 
-        String domain = "www.qbao.com";
+        String domain = "www.abc.com";
         Event event = new Event(device,user,currenEventType,domain,System.currentTimeMillis());
         currenEventType = currenEventType.next();
         Repositorys.getDeviceEventRepository().putDeviceEvent(device.getClientId(),event);

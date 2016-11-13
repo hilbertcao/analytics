@@ -1,4 +1,4 @@
-package com.qbao.analytics.test;
+package com.abc.analytics.test;
 import java.util.Properties;
 
 import kafka.javaapi.producer.Producer;
@@ -12,7 +12,7 @@ public class KafkaProducer
     public KafkaProducer(){
         Properties props = new Properties();
         //此处配置的是kafka的端口
-        props.put("metadata.broker.list", "slave1.qbao.com:9092,slave2.qbao.com:9092,slave4.qbao.com:9092");
+        props.put("metadata.broker.list", "slave1.abc.com:9092,slave2.abc.com:9092,slave4.abc.com:9092");
         //配置value的序列化类
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         //配置key的序列化类
