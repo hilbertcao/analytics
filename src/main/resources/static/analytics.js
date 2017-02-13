@@ -7,7 +7,7 @@
     var rootDomain = ".abc.com";
     //指定拦截的url,如果为空就拦截所有的
     var collectUrls = [
-        "passport.abc.com/cas/qianbaoLogin",
+        "passport.abc.com/cas/login",
         "user.abc.com/usercenter/adjRegist/doRegist2.html",
         "sign.abc.com/sign/doSignPrize.html"
     ];
